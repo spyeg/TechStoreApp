@@ -2,9 +2,7 @@ package com.example.techstore.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.techstore.R
 import com.example.techstore.databinding.ItemProductBinding
 import com.example.techstore.models.Product
 

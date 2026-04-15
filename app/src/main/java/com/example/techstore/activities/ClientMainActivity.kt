@@ -23,18 +23,34 @@ class ClientMainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = "TechStore"
 
+        // Cargar el fragmento inicial
         loadFragment(HomeFragment())
 
+        // Configurar la navegación inferior
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_home -> loadFragment(HomeFragment())
-                R.id.nav_products -> loadFragment(ProductsFragment())
-                R.id.nav_rentals -> loadFragment(RentalsFragment())
-                R.id.nav_repairs -> loadFragment(RepairsFragment())
-                R.id.nav_profile -> loadFragment(ProfileFragment())
+                R.id.nav_home -> {
+                    loadFragment(HomeFragment())
+                    true
+                }
+                R.id.nav_products -> {
+                    loadFragment(ProductsFragment())
+                    true
+                }
+                R.id.nav_rentals -> {
+                    loadFragment(RentalsFragment())
+                    true
+                }
+                R.id.nav_repairs -> {
+                    loadFragment(RepairsFragment())
+                    true
+                }
+                R.id.nav_profile -> {
+                    loadFragment(ProfileFragment())
+                    true
+                }
                 else -> false
             }
-            true
         }
     }
 
@@ -42,6 +58,12 @@ class ClientMainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
             .commit()
+        return true
+    }
+
+    // Agrega esta función para manejar el botón de atrás
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
         return true
     }
 }

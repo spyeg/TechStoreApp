@@ -25,16 +25,20 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Configurar los botones
         binding.btnBuy.setOnClickListener {
-            Toast.makeText(requireContext(), "🛒 Sección de Compras", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "🛒 Ir a Productos", Toast.LENGTH_SHORT).show()
+            // Navegar al fragment de productos
+            // Si usas Navigation Component, descomenta la línea:
+            // findNavController().navigate(R.id.action_home_to_products)
         }
 
         binding.btnRent.setOnClickListener {
-            Toast.makeText(requireContext(), "📅 Sección de Alquileres", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "📅 Ir a Alquileres", Toast.LENGTH_SHORT).show()
         }
 
         binding.btnRepair.setOnClickListener {
-            Toast.makeText(requireContext(), "🔧 Sección de Reparaciones", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "🔧 Ir a Reparaciones", Toast.LENGTH_SHORT).show()
         }
     }
 

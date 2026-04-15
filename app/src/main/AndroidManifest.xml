@@ -46,6 +46,16 @@
             android:name=".activities.AdminMainActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".activities.BuyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.RentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.RepairActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

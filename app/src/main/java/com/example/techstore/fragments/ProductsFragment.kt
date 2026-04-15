@@ -1,5 +1,6 @@
 package com.example.techstore.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
+import com.example.techstore.activities.BuyActivity
+import com.example.techstore.activities.RentActivity
+import com.example.techstore.activities.RepairActivity
 import com.example.techstore.databinding.FragmentProductsBinding
 import com.example.techstore.adapters.ProductAdapter
 import com.example.techstore.models.Product
@@ -42,9 +46,21 @@ class ProductsFragment : Fragment() {
     private fun setupRecyclerView() {
         adapter = ProductAdapter(
             products = productList,
-            onBuyClick = { product -> showBuyDialog(product) },
-            onRentClick = { product -> showRentDialog(product) },
-            onRepairClick = { product -> showRepairDialog(product) }
+            onBuyClick = { product ->
+                val intent = Intent(requireContext(), BuyActivity::class.java)
+                intent.putExtra("product", product)
+                startActivity(intent)
+            },
+            onRentClick = { product ->
+                val intent = Intent(requireContext(), RentActivity::class.java)
+                intent.putExtra("product", product)
+                startActivity(intent)
+            },
+            onRepairClick = { product ->
+                val intent = Intent(requireContext(), RepairActivity::class.java)
+                intent.putExtra("product", product)
+                startActivity(intent)
+            }
         )
 
         binding.recyclerViewProducts.apply {
@@ -70,6 +86,12 @@ class ProductsFragment : Fragment() {
                 }
                 adapter.updateProducts(productList)
                 binding.progressBar.visibility = View.GONE
+
+                if (productList.isEmpty()) {
+                    binding.tvEmpty.visibility = View.VISIBLE
+                } else {
+                    binding.tvEmpty.visibility = View.GONE
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -77,47 +99,6 @@ class ProductsFragment : Fragment() {
                 Toast.makeText(requireContext(), "Error: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
-    }
-
-    private fun showBuyDialog(product: Product) {
-        androidx.appcompat.app.AlertDialog.Builder(requireContext())
-            .setTitle("Comprar ${product.nombre}")
-            .setMessage("Precio: ${product.precioCompra}€\nStock disponible: ${product.stock}\n\n¿Confirmar compra?")
-            .setPositiveButton("Comprar") { _, _ ->
-                Toast.makeText(requireContext(), "Compra de ${product.nombre} - Próximamente", Toast.LENGTH_SHORT).show()
-            }
-            .setNegativeButton("Cancelar", null)
-            .show()
-    }
-
-    private fun showRentDialog(product: Product) {
-        androidx.appcompat.app.AlertDialog.Builder(requireContext())
-            .setTitle("Alquilar ${product.nombre}")
-            .setMessage("Precio/día: ${product.precioAlquiler}€\nStock disponible: ${product.stock}\n\n¿Confirmar alquiler?")
-            .setPositiveButton("Alquilar") { _, _ ->
-                Toast.makeText(requireContext(), "Alquiler de ${product.nombre} - Próximamente", Toast.LENGTH_SHORT).show()
-            }
-            .setNegativeButton("Cancelar", null)
-            .show()
-    }
-
-    private fun showRepairDialog(product: Product) {
-        val input = android.widget.EditText(requireContext())
-        input.hint = "Describe el problema..."
-
-        androidx.appcompat.app.AlertDialog.Builder(requireContext())
-            .setTitle("Reparar ${product.nombre}")
-            .setView(input)
-            .setPositiveButton("Solicitar") { _, _ ->
-                val problema = input.text.toString()
-                if (problema.isNotEmpty()) {
-                    Toast.makeText(requireContext(), "Solicitud enviada: $problema", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "Describe el problema", Toast.LENGTH_SHORT).show()
-                }
-            }
-            .setNegativeButton("Cancelar", null)
-            .show()
     }
 
     override fun onDestroyView() {
