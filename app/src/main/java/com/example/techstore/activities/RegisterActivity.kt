@@ -33,26 +33,12 @@ class RegisterActivity : AppCompatActivity() {
         val password = binding.etPassword.text.toString().trim()
         val confirmPassword = binding.etConfirmPassword.text.toString().trim()
 
-        if (nombre.isEmpty()) {
-            binding.etNombre.error = "Ingresa tu nombre"
-            return
-        }
-        if (email.isEmpty()) {
-            binding.etEmail.error = "Ingresa tu email"
-            return
-        }
-        if (password.isEmpty()) {
-            binding.etPassword.error = "Ingresa tu contraseña"
-            return
-        }
-        if (password != confirmPassword) {
-            binding.etConfirmPassword.error = "Las contraseñas no coinciden"
-            return
-        }
-        if (password.length < 6) {
-            binding.etPassword.error = "Mínimo 6 caracteres"
-            return
-        }
+        // Validaciones...
+        if (nombre.isEmpty()) { binding.etNombre.error = "Ingresa tu nombre"; return }
+        if (email.isEmpty()) { binding.etEmail.error = "Ingresa tu email"; return }
+        if (password.isEmpty()) { binding.etPassword.error = "Ingresa tu contraseña"; return }
+        if (password != confirmPassword) { binding.etConfirmPassword.error = "Las contraseñas no coinciden"; return }
+        if (password.length < 6) { binding.etPassword.error = "Mínimo 6 caracteres"; return }
 
         binding.btnRegister.isEnabled = false
         binding.btnRegister.text = "Registrando..."
@@ -66,15 +52,17 @@ class RegisterActivity : AppCompatActivity() {
                     val user = auth.currentUser
                     user?.let {
                         val userId = it.uid
+                        // Creamos un mapa con los datos del usuario, incluyendo el rol por defecto "cliente"
                         val userData = mapOf(
                             "uid" to userId,
                             "nombre" to nombre,
                             "email" to email,
-                            "role" to "cliente",
+                            "role" to "cliente", // Rol por defecto
                             "activo" to true,
                             "fechaRegistro" to System.currentTimeMillis()
                         )
 
+                        // Guardamos los datos en Realtime Database
                         FirebaseDatabase.getInstance().getReference("users")
                             .child(userId)
                             .setValue(userData)
@@ -91,7 +79,6 @@ class RegisterActivity : AppCompatActivity() {
                     val errorMsg = when {
                         task.exception?.message?.contains("email address is already in use") == true -> "❌ Email ya registrado"
                         task.exception?.message?.contains("badly formatted") == true -> "❌ Email inválido"
-                        task.exception?.message?.contains("6 characters") == true -> "❌ Contraseña muy corta"
                         else -> "❌ Error: ${task.exception?.message}"
                     }
                     Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show()
