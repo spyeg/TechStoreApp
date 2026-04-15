@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "322596351858",
+    "project_id": "techstorefirebase",
+    "storage_bucket": "techstorefirebase.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322596351858:android:484ead84eb72fb0d9037eb",
+        "android_client_info": {
+          "package_name": "com.example.techstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322596351858-o7ubdiv3phd41h0vlamum864orqc2l0a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.techstore",
+            "certificate_hash": "dd78c80e26139707842ef98d41113f2eae354d3c"
+          }
+        },
+        {
+          "client_id": "322596351858-kbdnsrj3jmt7q08d50or9qr995e9msht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSx3s0ICHF_-1ub4QIMDfNrZGTygKpViM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322596351858-kbdnsrj3jmt7q08d50or9qr995e9msht.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">TechStore</string>
+    <string name="default_web_client_id">322596351858-kbdnsrj3jmt7q08d50or9qr995e9msht.apps.googleusercontent.com</string>
+
+    <!-- Categorías -->
+    <string name="category_laptops">Laptops</string>
+    <string name="category_phones">Teléfonos</string>
+    <string name="category_tablets">Tablets</string>
+    <string name="category_accessories">Accesorios</string>
+
+    <!-- Estados -->
+    <string name="status_pending">Pendiente</string>
+    <string name="status_active">Activo</string>
+    <string name="status_completed">Completado</string>
+    <string name="status_cancelled">Cancelado</string>
+</resources>
